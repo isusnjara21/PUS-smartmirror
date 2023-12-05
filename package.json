@@ -1,0 +1,22 @@
+{
+  "name": "pus-smartmirror",
+  "version": "1.0.0",
+  "description": "Smart mirror project for the PUS course at FOI",
+  "main": "js/electron.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+		"type": "git",
+		"url": "git+https://github.com/isusnjara21/PUS-smartmirror.git"
+	},
+  "keywords": [
+    "pus-smartmirror"
+  ],
+  "author": "Ivan Šušnjara, Ariana Slaviček, Lara Rakić, Luka Šeremet",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}
