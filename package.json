@@ -8,9 +8,9 @@
     "start": "electron ."
   },
   "repository": {
-		"type": "git",
-		"url": "git+https://github.com/isusnjara21/PUS-smartmirror.git"
-	},
+    "type": "git",
+    "url": "git+https://github.com/isusnjara21/PUS-smartmirror.git"
+  },
   "keywords": [
     "pus-smartmirror"
   ],
@@ -18,5 +18,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^28.0.0"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.2"
   }
 }
