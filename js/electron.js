@@ -1,4 +1,5 @@
 const electron = require('electron');
+const core = require("./core");
 const { BrowserWindow } = require('electron/main');
 
 const app = electron.app;
@@ -49,6 +50,7 @@ app.on("before-quit", async (event) => {
 	setTimeout(() => {
 		process.exit(0);
 	}, 3000);
+    await core.stop();
 	process.exit(0);
 });
 
@@ -57,6 +59,8 @@ app.on("certificate-error", (event, webContents, url, error, certificate, callba
 	callback(true);
 });
 
-app.whenReady().then(() => {
-    createWindow();
+core.start().then(() => {
+    app.whenReady().then(() => {
+        createWindow();
+    });
 });
