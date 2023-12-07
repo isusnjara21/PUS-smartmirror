@@ -10,14 +10,13 @@ class Example extends Module {
     start = async function() {
         // code to run at startup
         this.update();
-        this.sendSocketNotification("started");
         return this;
     };
     update = async function() {
         setTimeout(() => {
             console.log("updating");
             // example code to update module information
-            this.sendSocketNotification("updated");
+            this.sendNotification("updated");
         }, this.updateTime);
     };
     setDom = function() {

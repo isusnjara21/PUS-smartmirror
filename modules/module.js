@@ -9,17 +9,20 @@ class Module {
     setApp = function(app) {
         this.app = app;
     };
-    setSocket = function(io) {
-        this.socket = io;
-        io.on(this.moduleName, () => {
-            scheduleUpdate();
-        });
+
+    sendNotification = function(string) {
+        console.log("notification recieved: " + string);
+        this.recieveNotification(string);
     };
 
-    sendSocketNotification = function(string) {
-        this.socket.emit(string);
-        console.log("emitted");
-    };
+    recieveNotification = async function(string) {
+        switch(string) {
+            case "updated": {
+                this.scheduleUpdate();
+                break;
+            }
+        }
+    }
 
     update = async function() {};
     scheduleUpdate = async function() {

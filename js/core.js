@@ -7,11 +7,10 @@ function Core () {
 
     this.start = async function () {
         httpServer = new Server();
-        const {app, io} = await httpServer.open();
-        
+        const app = await httpServer.open();
+        console.log("Server started.");
         //example module
         example.setApp(app);
-        example.setSocket(io);
         modules.push(example.start());
     };
     this.stop = async function() {
