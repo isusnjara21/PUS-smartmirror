@@ -1,7 +1,6 @@
 const Server = require("./server");
-const ExampleModule = require("/modules/example_module.js");
+const ExampleModule = require("../modules/example_module");
 let example = new ExampleModule();
-
 function Core () {
     let httpServer;
     let modules = [];
@@ -9,12 +8,11 @@ function Core () {
     this.start = async function () {
         httpServer = new Server();
         const {app, io} = await httpServer.open();
-
+        
         //example module
         example.setApp(app);
         example.setSocket(io);
         modules.push(example.start());
-
     };
     this.stop = async function() {
         return httpServer.close();
