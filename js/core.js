@@ -15,12 +15,22 @@ function Core () {
         example.setApp(app);
         modules.push(example.start());
 
-
+        console.log("Modules loaded");
         
     };
     this.stop = async function() {
         return httpServer.close();
     };
+
+
+    process.on("SIGINT", async () => {
+		await this.stop();
+		process.exit(0);
+	});
+	process.on("SIGTERM", async () => {
+		await this.stop();
+		process.exit(0);
+	});
 };
 
 module.exports = new Core();

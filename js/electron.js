@@ -64,6 +64,7 @@ app.on("certificate-error", (event, webContents, url, error, certificate, callba
 });
 
 core.start().then(() => {
+    console.log("App started");
     if(!process.argv.includes("test")) {
         app.whenReady().then(() => {
             createWindow();
