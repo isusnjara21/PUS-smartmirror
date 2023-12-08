@@ -15,8 +15,12 @@ function createWindow() {
     const window = new BrowserWindow({
         width: screen.width,
         height: screen.height,
+        x: 0,
+        y: 0,
         darkTheme: true,
         backgroundColor: "#000000",
+        fullscreen: true,
+        autoHideMenuBar: true,
         webPreferences: {
             contextIsolation: true,
 			nodeIntegration: false,
@@ -60,7 +64,9 @@ app.on("certificate-error", (event, webContents, url, error, certificate, callba
 });
 
 core.start().then(() => {
-    app.whenReady().then(() => {
-        createWindow();
-    });
+    if(!process.argv.includes("test")) {
+        app.whenReady().then(() => {
+            createWindow();
+        });
+    }
 });

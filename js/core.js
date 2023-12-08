@@ -6,12 +6,17 @@ function Core () {
     let modules = [];
 
     this.start = async function () {
+        //code for wifi and camera goes here
+
         httpServer = new Server();
         const app = await httpServer.open();
         console.log("Server started.");
         //example module
         example.setApp(app);
         modules.push(example.start());
+
+
+        
     };
     this.stop = async function() {
         return httpServer.close();

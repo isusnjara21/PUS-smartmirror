@@ -10,25 +10,18 @@ class Module {
         this.app = app;
     };
 
-    sendNotification = function(string) {
-        console.log("notification recieved: " + string);
-        this.recieveNotification(string);
+    confirmUpdated = async function() {
+        console.log("Updated " + this.moduleName);
+        await this.updateDom();
+        this.scheduleUpdate();
     };
 
-    recieveNotification = async function(string) {
-        switch(string) {
-            case "updated": {
-                this.scheduleUpdate();
-                break;
-            }
-        }
-    }
-
+    updateDom = async function() {};
     update = async function() {};
-    scheduleUpdate = async function() {
+    scheduleUpdate = async function(time = null) {
         setTimeout(() => {
-            this.update();
-        }, this.time);
+            this.update(0);
+        }, time != null ? time : this.updateTime);
     };
 };
 

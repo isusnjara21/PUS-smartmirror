@@ -2,26 +2,28 @@ const Module = require("./module");
 
 class Example extends Module {
     constructor() {
-        super('name', 50, 100);
+        super('exampleName', 50, 1000);
     }
     /*
         All of the following are required functions
     */
     start = async function() {
         // code to run at startup
-        this.update();
+        this.update(this.initialUpdateTime);
         return this;
     };
-    update = async function() {
+    update = async function(time = null) {
         setTimeout(() => {
-            console.log("updating");
-            // example code to update module information
-            this.sendNotification("updated");
-        }, this.updateTime);
+            
+            this.confirmUpdated();
+        }, time != null ? time : this.updateTime);
     };
-    setDom = function() {
+    createDom = function() {
 
     };
+    updateDom = async function() {
+
+    }
     getDom = function() {
 
     };

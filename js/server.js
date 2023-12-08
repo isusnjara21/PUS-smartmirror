@@ -9,14 +9,13 @@ function Server() {
     this.open = async function () {
         return new Promise((resolve) => {
             server = http.Server(app);
-
             server.listen(port, "localhost");
             app.use("/js", express.static(__dirname));
-            
+            app.get("/", (req, res) => {
+                res.send("hello world");
+            });
             server.on("listening", () => {
-                resolve({
-                    app
-                });
+                resolve({ app });
             });
         });
     };

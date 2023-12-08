@@ -4,7 +4,7 @@
   "description": "Smart mirror project for the PUS course at FOI",
   "main": "js/electron.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "electron . test",
     "start": "electron ."
   },
   "repository": {
@@ -20,7 +20,6 @@
     "electron": "^28.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "socket.io": "^4.7.2"
+    "express": "^4.18.2"
   }
 }
