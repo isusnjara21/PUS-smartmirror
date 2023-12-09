@@ -1,18 +1,7 @@
-const express = require('express');
-
 class Module {
-    
-    constructor(name, initialTime, time) {
+    constructor(name, time) {
         this.moduleName = name;
-        this.initialUpdateTime = initialTime;
         this.updateTime = time;
-    };
-
-    /*
-        Gives the module an access into the server its running on.
-    */
-    setApp = function(app) {
-        this.app = app;
     };
 
     /*
@@ -29,11 +18,12 @@ class Module {
     */
     scheduleUpdate = async function(time = null) {
         if(!this.scheduled) {
+            this.scheduled = true;
             setTimeout(() => {
-                if(!this.suspension) { this.update(0); };
+                if(!this.suspension) { this.update(); };
                 this.scheduled = false;
             }, time != null ? time : this.updateTime);
-            this.scheduled = true;
+            
         }
     };
 
@@ -45,5 +35,3 @@ class Module {
     updateDom = async function() {};
     update = async function() {};
 };
-
-module.exports = Module;
