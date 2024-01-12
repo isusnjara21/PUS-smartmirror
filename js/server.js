@@ -37,6 +37,7 @@ function Server() {
             ws.send('exampleName$$' + 3);
         });
 
+        app.use('/css', express.static(path.join(__dirname, '../smartmirror.css')));
         app.use("/js", express.static(__dirname));
         app.use("/modules", express.static(path.join(__dirname, "../modules")));
         app.get("/", (req, res) => {
