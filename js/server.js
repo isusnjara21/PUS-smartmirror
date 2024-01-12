@@ -19,7 +19,7 @@ function Server() {
             this.counter++;
         });
         //
-
+        app.use('/css', express.static(path.join(__dirname, '../smartmirror.css')));
         app.use("/js", express.static(__dirname));
         app.use("/modules", express.static(path.join(__dirname, "../modules")));
         app.get("/", (req, res) => {
