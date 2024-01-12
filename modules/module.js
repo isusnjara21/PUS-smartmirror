@@ -1,7 +1,9 @@
 console.log('open: ');
 var ws = new WebSocket("ws://127.0.0.1:8081");
+var connected = false;
 ws.onopen = function (event) {
     console.log('Connection is open ...');
+    connected = true;
 };
 ws.onerror = function (err) {
     console.log('err: ', err);
@@ -28,8 +30,6 @@ class Module {
         this.update.classList.add('update');
         const head = document.querySelector('head');
         head.appendChild(this.update);
-
-        ws.send('!' + this.moduleName);
     };
 
     /*
@@ -55,6 +55,31 @@ class Module {
             
         }
     };
+
+    waitForSocketConnection = function(socket, callback){
+        setTimeout(
+            function () {
+                if (socket.readyState === 1) {
+                    console.log("Connection is made")
+                    if (callback != null){
+                        callback();
+                    }
+                } else {
+                    console.log("wait for connection...")
+                    waitForSocketConnection(socket, callback);
+                }
+    
+            }, 5); // wait 5 milisecond for the connection...
+    };
+    init = async function() {
+        this.waitForSocketConnection(ws, function(){
+            console.log("message sent!!!");
+            ws.send(msg);
+        });
+
+        this.start();
+        this.createDom();
+    }
 
     /*
         Functions should be implemented within the module itself.

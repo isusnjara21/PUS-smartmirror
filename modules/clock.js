@@ -38,7 +38,6 @@ class Clock extends Module {
 
 document.addEventListener("DOMContentLoaded", () => {
     const clockModule = new Clock();
-    clockModule.start();
-    clockModule.createDom();
+    clockModule.init();
 });
 

@@ -7,7 +7,6 @@ class Example extends Module {
     */
     start = async function() {
         // code to run at startup
-
         this.count = 0;
 
     };
@@ -42,6 +41,5 @@ class Example extends Module {
 
 document.addEventListener("DOMContentLoaded", () => {
     const exampleModule = new Example();
-    exampleModule.start();
-    exampleModule.createDom();
+    exampleModule.init();
 });
