@@ -26,6 +26,7 @@ function Server() {
         wss.on('connection', (ws) => {
             ws.on('message', (data) => {
                 var string = data.toString();
+                
                 if(string.startsWith("!")) {
                     modules.push(string.substring(1));
                 }
