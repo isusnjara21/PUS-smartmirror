@@ -12,7 +12,7 @@ class Example extends Module {
 
     };
     update = async function() {
-        this.count = new Date().getHours().toString();
+        this.count = this.update.innerText;
         /*
         fetch("/serverCounter")
         .then(x => x.text())
@@ -21,7 +21,7 @@ class Example extends Module {
     };
     createDom = function() {
         const wrapper = document.createElement("div");
-        wrapper.style.display = "block;";
+        wrapper.style.display = "block";
 
         const counterWrapper = document.createElement("div");
         counterWrapper.className = this.moduleName;

@@ -2,6 +2,8 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
+const WebSocketServer = require('ws').Server;
+const wss = new WebSocketServer({port: 8081});
 
 function Server() {
     const app = express();
@@ -19,6 +21,20 @@ function Server() {
             this.counter++;
         });
         //
+
+        var modules = [];
+        wss.on('connection', (ws) => {
+            ws.on('message', (data) => {
+                var string = data.toString();
+                if(string.startsWith("!")) {
+                    modules.push(string.substring(1));
+                }
+                else if(string.startsWith("#")) {
+                    
+                }
+            });
+            ws.send('exampleName$$' + 3);
+        });
 
         app.use("/js", express.static(__dirname));
         app.use("/modules", express.static(path.join(__dirname, "../modules")));
