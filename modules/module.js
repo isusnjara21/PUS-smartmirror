@@ -55,7 +55,7 @@ class Module {
         }
     };
 
-    waitForSocketConnection = function(socket, callback){
+    waitForSocketConnection(socket, callback){
         setTimeout(
             function () {
                 if (socket.readyState === 1) {
