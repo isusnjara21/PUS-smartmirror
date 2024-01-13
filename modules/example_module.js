@@ -7,15 +7,10 @@ class Example extends Module {
     */
     start = async function() {
         // code to run at startup
-        this.count = 0;
-
+        this.count = 1;
     };
     update = async function() {
-        this.count = this.update.innerText;
-        /*
-        fetch("/serverCounter")
-        .then(x => x.text())
-        .then(y =>this.count = y === undefined ? 0 : y);*/
+        this.count = this.updater.innerText;
         this.confirmUpdated();
     };
     createDom = function() {
@@ -23,8 +18,8 @@ class Example extends Module {
         wrapper.style.display = "block";
 
         const counterWrapper = document.createElement("div");
-        counterWrapper.className = this.moduleName;
-        counterWrapper.innerText = this.count;
+        counterWrapper.classList.add(this.moduleName); // For categorization between modules
+        counterWrapper.classList.add("count"); // Required for distinction between divs within module, otherwise updateDom might always default to the update div
         counterWrapper.style.color = "white";
 
         const position = document.getElementsByClassName("UR");
@@ -33,7 +28,8 @@ class Example extends Module {
         this.update();
     };
     updateDom = async function() {
-        const counterWrapper = document.querySelector("." + this.moduleName);
+        const counterWrapper = document.querySelector("." + this.moduleName + ".count");
+        this.count++;
         counterWrapper.innerText = this.count;
     }
 };

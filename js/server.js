@@ -31,10 +31,10 @@ function Server() {
                     modules.push(string.substring(1));
                 }
                 else if(string.startsWith("#")) {
-                    
+                    // if string.substring(1) == moduleName then call function for fetching online API data
+                    // send data with ws.send("moduleName$$DATA_HERE")
                 }
             });
-            ws.send('exampleName$$' + 3);
         });
 
         app.use('/css', express.static(path.join(__dirname, '../smartmirror.css')));

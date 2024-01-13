@@ -1,4 +1,3 @@
-console.log('open: ');
 var ws = new WebSocket("ws://127.0.0.1:8081");
 var connected = false;
 ws.onopen = function (event) {
@@ -12,7 +11,7 @@ ws.onmessage = function (event) {
     var data = event.data.split("$$");
     var module = data[0];
     var update = data[1];
-    const updater = document.querySelector('head.' + module + '.update');
+    const updater = document.querySelector('.' + module + '.update');
     if(updater != null) {
         updater.innerText = update;
     }
@@ -25,11 +24,11 @@ class Module {
     constructor(name, time) {
         this.moduleName = name;
         this.updateTime = time;
-        this.update = document.createElement('div');
-        this.update.classList.add(this.moduleName);
-        this.update.classList.add('update');
+        this.updater = document.createElement('div');
+        this.updater.classList.add(this.moduleName);
+        this.updater.classList.add('update');
         const head = document.querySelector('head');
-        head.appendChild(this.update);
+        head.appendChild(this.updater);
     };
 
     /*
@@ -66,19 +65,18 @@ class Module {
                     }
                 } else {
                     console.log("wait for connection...")
-                    waitForSocketConnection(socket, callback);
+                    this.waitForSocketConnection(socket, callback);
                 }
     
             }, 5); // wait 5 milisecond for the connection...
     };
     init = async function() {
+        var module = this;
         this.waitForSocketConnection(ws, function(){
             console.log("message sent!!!");
-            ws.send(msg);
+            module.start();
+            module.createDom();
         });
-
-        this.start();
-        this.createDom();
     }
 
     /*
