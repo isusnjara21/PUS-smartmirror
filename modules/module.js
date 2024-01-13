@@ -1,8 +1,6 @@
 var ws = new WebSocket("ws://127.0.0.1:8081");
-var connected = false;
 ws.onopen = function (event) {
     console.log('Connection is open ...');
-    connected = true;
 };
 ws.onerror = function (err) {
     console.log('err: ', err);
@@ -18,6 +16,22 @@ ws.onmessage = function (event) {
 };
 ws.onclose = function() {
     console.log("Connection is closed...");
+};
+
+waitForSocketConnection = function(socket, callback) {
+    setTimeout(
+        function () {
+            if (socket.readyState === 1) {
+                console.log("Connection is made for ");
+                if (callback != null){
+                    callback();
+                }
+            } else {
+                console.log("wait for connection...");
+                waitForSocketConnection(socket, callback);
+            }
+
+        }, 5); // wait 5 milisecond for the connection...
 };
 
 class Module {
@@ -55,24 +69,9 @@ class Module {
         }
     };
 
-    waitForSocketConnection(socket, callback){
-        setTimeout(
-            function () {
-                if (socket.readyState === 1) {
-                    console.log("Connection is made")
-                    if (callback != null){
-                        callback();
-                    }
-                } else {
-                    console.log("wait for connection...")
-                    this.waitForSocketConnection(socket, callback);
-                }
-    
-            }, 5); // wait 5 milisecond for the connection...
-    };
     init = async function() {
         var module = this;
-        this.waitForSocketConnection(ws, function(){
+        waitForSocketConnection(ws, function(){
             console.log("message sent!!!");
             module.start();
             module.createDom();
