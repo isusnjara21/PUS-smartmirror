@@ -4,11 +4,17 @@
     font-size: 30px;
     color: white;
     text-align: center;
-    height: 100%;
-    width: 100%;
     vertical-align: middle;
     position: relative;
     top: 50%;
+}
+
+.weatherModule {
+    font-family: "monospace", monospace;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    text-align: center;
 }
 
 .grid {
@@ -22,6 +28,8 @@
         ". . .";
     width: 100%;
     height: 100%;
+    transform-origin: top left;
+    transform: rotate(-90deg) translateX(-100%);
 } 
 
 body {
