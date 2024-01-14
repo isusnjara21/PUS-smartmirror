@@ -17,6 +17,7 @@ Withing the "Embedded software development" subject, in the "Game development" m
 	- It wil also be able to supply "Spotify" information; song name, artist, duration
 ### Use Case: Smart Mirror in a Home Environment
 **Actor:** Homeowner/End User
+
 **Goal:** To utilize and interact with the Smart Mirror in a home setting for convenience and information retrieval.
 
 **Preconditions:**
