@@ -1,5 +1,5 @@
 # PUS-SmartMirror
-## "Embedded software development" project - Faculty of organization and informatics, 2023
+## "Embedded software development" project - Faculty of organization and informatics, 2023-2024
 
 Withing the "Embedded software development" subject, in the "Game development" module, a select few of the students decided to work on a "Smart mirror" project, the details of which will be further layed out in the continuation of this document.
 ### Project overview
