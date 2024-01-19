@@ -9,6 +9,14 @@
     top: 50%;
 }
 
+.weatherModule {
+    font-family: "monospace", monospace;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    text-align: center;
+}
+
 .grid {
     display: grid; 
     grid-template-columns: 1fr 1fr 1fr; 
@@ -18,6 +26,10 @@
         ". . ."
         ". . ."
         ". . .";
+    width: 100%;
+    height: 100%;
+    transform-origin: top left;
+    transform: rotate(-90deg) translateX(-100%);
 } 
 
 body {
