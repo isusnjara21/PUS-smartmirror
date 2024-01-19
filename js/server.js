@@ -32,7 +32,6 @@ function Server() {
                     response.currentConditions.humidity + "," + 
                     response.days[0].description + "," + 
                     response.alerts[0].description;
-        console.log(weatherData);
         ws.send("weatherModule$$" + weatherData);
 
         }).catch((errorResponse) => {
@@ -59,15 +58,10 @@ function Server() {
         });
         //
 
-        var modules = [];
         wss.on('connection', (ws) => {
             ws.on('message', (data) => {
                 var string = data.toString();
-                
-                if(string.startsWith("!")) {
-                    modules.push(string.substring(1));
-                }
-                else if(string.startsWith("#")) {
+                if(string.startsWith("#")) {
                     if (string.substring(1) == "weatherModule") {
                         this.fetchWeatherData(ws);
                     }

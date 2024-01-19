@@ -37,5 +37,5 @@ class Example extends Module {
 
 document.addEventListener("DOMContentLoaded", () => {
     const exampleModule = new Example();
-    exampleModule.init();
+    //exampleModule.init();
 });

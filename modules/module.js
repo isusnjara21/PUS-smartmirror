@@ -49,7 +49,7 @@ class Module {
         Should be called when update is finished to update the DOM on the server, automatically schedules next update.
     */
     confirmUpdated = async function() {
-        ws.send('#' + this.moduleName)
+        ws.send('#' + this.moduleName);
         console.log("Updated " + this.moduleName);
         await this.updateDom();
         this.scheduleUpdate();
@@ -74,6 +74,7 @@ class Module {
         waitForSocketConnection(ws, function(){
             console.log("message sent!!!");
             module.start();
+            ws.send('#' + module.moduleName)
             module.createDom();
         });
     }

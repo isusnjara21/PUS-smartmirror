@@ -1,6 +1,6 @@
 class Weather extends Module {
     constructor() {
-        super('weatherModule', 1000); 
+        super('weatherModule', 90000); 
             // reads from weather API every x number of sec
     }
     start = async function() {
@@ -26,58 +26,83 @@ class Weather extends Module {
     };
     createDom = function() {
         const wrapper = document.createElement("div");
-        const weatherWrapper = document.createElement("div");
-        const addressWrapper = document.createElement("div");
-        const dateTimeWrapper = document.createElement("div");
-        const tempWrapper = document.createElement("div");
-        const humidityWrapper = document.createElement("div");
-        const dayDescWrapper = document.createElement("div");
-        const alertDescWrapper = document.createElement("div");
-
         wrapper.className = this.moduleName;
 
+        const weatherWrapper = document.createElement("div");
         weatherWrapper.classList.add(this.moduleName);
         weatherWrapper.classList.add("weather");
-        addressWrapper.classList.add(this.moduleName);
-        addressWrapper.classList.add("address");
-        dateTimeWrapper.classList.add(this.moduleName);
-        dateTimeWrapper.classList.add("dateTime");
+
+        const tempWrapper = document.createElement("div");
         tempWrapper.classList.add(this.moduleName);
         tempWrapper.classList.add("temp");
-        humidityWrapper.classList.add(this.moduleName);
-        humidityWrapper.classList.add("humidity");
-        dayDescWrapper.classList.add(this.moduleName);
-        dayDescWrapper.classList.add("dayDesc");
-        alertDescWrapper.classList.add(this.moduleName);
-        alertDescWrapper.classList.add("alertDesc");
+        const tempDisplay = document.createElement("div");
+        tempDisplay.classList.add(this.moduleName);
+        tempDisplay.classList.add("temp");
+        tempDisplay.classList.add("display");
+        const celsiusDisplay = document.createElement("div");
+        celsiusDisplay.innerText = '°C';
+        celsiusDisplay.style.fontSize = '17px';
+        celsiusDisplay.style.float = 'right';
+
+        const dateTimeDisplay = document.createElement("div");
+        dateTimeDisplay.classList.add(this.moduleName);
+        dateTimeDisplay.classList.add("dateTime");
+        dateTimeDisplay.classList.add("display");
+
+        const descriptorWrapper = document.createElement("div");
+        descriptorWrapper.classList.add(this.moduleName);
+        descriptorWrapper.classList.add("desc");
+
+        const dayDescDisplay = document.createElement("div");
+        dayDescDisplay.classList.add(this.moduleName);
+        dayDescDisplay.classList.add("day");
+        dayDescDisplay.classList.add("display");
+
+        const alertDescDisplay = document.createElement("div");
+        alertDescDisplay.classList.add(this.moduleName);
+        alertDescDisplay.classList.add("alert");
+        alertDescDisplay.classList.add("display");
+
+        const humidityDisplay = document.createElement("div");
+        humidityDisplay.classList.add(this.moduleName);
+        humidityDisplay.classList.add("humidity");
+        humidityDisplay.classList.add("display");
         
-        const position = document.getElementsByClassName("BM");
-        position[0].appendChild(wrapper).appendChild(weatherWrapper);
-        weatherWrapper.appendChild(addressWrapper); // ?
-        weatherWrapper.appendChild(dateTimeWrapper);
+        const positionBM = document.getElementsByClassName("BM");
+        positionBM[0].appendChild(wrapper).appendChild(weatherWrapper);
         weatherWrapper.appendChild(tempWrapper);
-        weatherWrapper.appendChild(humidityWrapper);
-        weatherWrapper.appendChild(dayDescWrapper);
-        weatherWrapper.appendChild(alertDescWrapper);
+        tempWrapper.appendChild(tempDisplay);
+        tempWrapper.appendChild(celsiusDisplay);
+
+        weatherWrapper.appendChild(humidityDisplay);
+        weatherWrapper.appendChild(dateTimeDisplay);
+        
+        weatherWrapper.appendChild(descriptorWrapper);
+        descriptorWrapper.appendChild(dayDescDisplay);
+        descriptorWrapper.appendChild(alertDescDisplay);
 
         this.update();
     };
     updateDom = async function() {
-        const weatherWrapper = document.querySelector("." + this.moduleName + ".weather");
-        const addressWrapper = document.querySelector("." + this.moduleName + ".address");
-        const dateTimeWrapper= document.querySelector("." + this.moduleName + ".dateTime");
-        const tempWrapper = document.querySelector("." + this.moduleName + ".temp");
-        const humidityWrapper = document.querySelector("." + this.moduleName + ".humidity");
-        const dayDescWrapper = document.querySelector("." + this.moduleName + ".dayDesc");
-        const alertDescWrapper = document.querySelector("." + this.moduleName + ".alertDesc");
+        const tempDisplay = document.querySelector("." + this.moduleName + ".temp.display");
+        //tempDisplay.innerText = "30";
+        tempDisplay.innerText = this.temp;
 
-        addressWrapper.innerText = this.address;
-        dateTimeWrapper.innerText = this.dateTime;
-        tempWrapper.innerText = this.temp;
-        humidityWrapper.innerText = this.humidity;
-        dayDescWrapper.innerText = this.dayDesc;
-        alertDescWrapper.innerText = this.alertDesc;
+        const dateTimeDisplay= document.querySelector("." + this.moduleName + ".dateTime.display");
+        //dateTimeDisplay.innerText = "Varaždin" + ", " + "1-1-2024".replaceAll('-', '.');
+        dateTimeDisplay.innerText = this.address + ", " + this.dateTime.replaceAll('-', '.');
 
+        const dayDescDisplay = document.querySelector("." + this.moduleName + ".day.display");
+        //dayDescDisplay.innerText = "Lorum ipsum 1";
+        dayDescDisplay.innerText = this.dayDesc;
+
+        const alertDescDisplay = document.querySelector("." + this.moduleName + ".alert.display");
+        //alertDescDisplay.innerText = "Lorum ipsum 2";
+        alertDescDisplay.innerText = this.alertDesc;
+
+        const humidityDisplay = document.querySelector("." + this.moduleName + ".humidity.display");
+        //humidityDisplay.innerText = "Humidity: " + "30" + '%';
+        humidityDisplay.innerText = "Humidity: " + this.humidity + '%';
     };
 };
 
