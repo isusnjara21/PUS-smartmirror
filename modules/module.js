@@ -22,7 +22,7 @@ waitForSocketConnection = function(socket, callback) {
     setTimeout(
         function () {
             if (socket.readyState === 1) {
-                console.log("Connection is made for ");
+                console.log("Connection is made...");
                 if (callback != null){
                     callback();
                 }
