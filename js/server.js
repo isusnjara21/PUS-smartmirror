@@ -2,6 +2,7 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
+const Cam = require("./camera.js");
 const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({port: 8081});
 
@@ -9,6 +10,7 @@ function Server() {
     const app = express();
     const port = 5200;
     let server = null;
+    let piCamera;
 
     this.fetchWeatherData = async function (ws) {
         let weatherData = "";
@@ -48,15 +50,9 @@ function Server() {
 
     this.open = async function () {
         server = http.Server(app);
-        
-        //example
-        this.counter = 0;
-        app.get("/serverCounter", (req, res) => {
-            res.set('Content-Type', 'text/plain');
-            res.send(this.counter.toString());
-            this.counter++;
-        });
-        //
+
+        //code for camera goes here
+        piCamera = new Cam();
 
         wss.on('connection', (ws) => {
             ws.on('message', (data) => {
@@ -68,7 +64,10 @@ function Server() {
                     // if string.substring(1) == moduleName then call function for fetching online API data
                     // send data with ws.send("moduleName$$DATA_HERE")
                 }
+                
+                
             });
+            piCamera.enable(ws);
         });
 
         app.use('/css', express.static(path.join(__dirname, '../smartmirror.css')));

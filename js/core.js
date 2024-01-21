@@ -1,16 +1,17 @@
 const Server = require("./server");
 
+
+
 function Core () {
     let httpServer;
+    
 
     this.start = async function () {
         //code for wifi goes here
-        //code for camera goes here
-        
+
+        //code for server goes here
         httpServer = new Server();
         httpServer.open();
-
-        
     };
     this.stop = async function() {
         return httpServer.close();

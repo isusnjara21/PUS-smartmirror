@@ -26,7 +26,8 @@
     display: flex;
 }
 .weatherModule.temp.display {
-    padding-left: 45%;
+    width: 60%;
+    justify-content: end;
 }
 
 .weatherModule.dateTime.display {

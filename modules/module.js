@@ -6,12 +6,21 @@ ws.onerror = function (err) {
     console.log('err: ', err);
 };
 ws.onmessage = function (event) {
-    var data = event.data.split("$$");
-    var module = data[0];
-    var update = data[1];
-    const updater = document.querySelector('.' + module + '.update');
-    if(updater != null) {
-        updater.innerText = update;
+    if(event.data == "cam?") {
+        let body = document.querySelector("body");
+        body.style.display = 'none';
+    } else if (event.data == "cam!") {
+        let body = document.querySelector("body");
+        body.style.display = 'block';
+    }
+    else {
+        var data = event.data.split("$$");
+        var module = data[0];
+        var update = data[1];
+        const updater = document.querySelector('.' + module + '.update');
+        if(updater != null) {
+            updater.innerText = update;
+        }
     }
 };
 ws.onclose = function() {
@@ -75,7 +84,10 @@ class Module {
             console.log("message sent!!!");
             module.start();
             ws.send('#' + module.moduleName)
-            module.createDom();
+
+            setTimeout(() => {
+                module.createDom();
+            }, 1000);
         });
     }
 
