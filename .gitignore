@@ -1,2 +1,3 @@
 /node_modules/**/*
 /scan.jpg
+face_detection_result.txt

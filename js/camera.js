@@ -1,6 +1,5 @@
-const {libcamera} = require('libcamera')
-const faceapi = require('face-api.js');
 const fs = require('fs');
+const { spawn } = require('child_process');
 
 function Camera() {
 
@@ -10,7 +9,15 @@ function Camera() {
         });
     }
 
+    this.runPythonScript = async function () {
+        const pythonScriptPath = '/home/smartmirror/Desktop/PUS-smartmirror/py/face-detector.py';
+
+        const pythonProcess = spawn('python', [pythonScriptPath]);
+    };
+
     this.enable = async function(ws) {
+        ws.send("cam?");
+        this.runPythonScript();
         while(true) {
             await new Promise(async (resolve) => {
                 await this.start();
@@ -23,22 +30,20 @@ function Camera() {
         }
     };
 
+    this.checkFaceDetection = function () {
+        const content = fs.readFileSync('/home/smartmirror/Desktop/PUS-smartmirror/face_detection_result.txt', 'utf8');
+        return content.trim() === '1';
+    };
+
     this.start = async function() {
         let counter = 0;
         console.log("cam started");
         while(counter < 3) {
-            libcamera
-                .still({config: {nopreview: true, output: 'scan.jpg'},})
-                //.then(result => console.log(result))
-                .catch(err => console.log(err));
-             
+            
             await this.delay(500).then(() => {
-                if(true) {
+                if(this.checkFaceDetection()) {
                     console.log(counter);
                     counter++;
-                } else {
-                    console.log(counter);
-                    counter = 0;
                 }
                 
             });
@@ -48,18 +53,14 @@ function Camera() {
     };
 
     this.end = async function() {
-        let counter = 8;
+        let counter = 20;
         console.log("cam ended");
         while(counter >= 0) {
-            libcamera
-                .still({config: {nopreview: true, output: 'scan.jpg'},})
-                //.then(result => console.log(result))
-                .catch(err => console.log(err));
             
             await this.delay(500).then(() => {
-                if(false) {
+                if(this.checkFaceDetection()) {
                     console.log(counter);
-                    counter = 8;
+                    counter = 20;
                 } else {
                     console.log(counter);
                     counter--;
