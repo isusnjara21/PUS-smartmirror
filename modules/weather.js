@@ -21,8 +21,12 @@ class Weather extends Module {
             this.humidity = updateInfo[3];
             this.dayDesc = updateInfo[4];
             this.alertDesc = updateInfo[5];
+            this.confirmUpdated();  
+        } else {
+            console.log("retrying " + this.moduleName);
+            this.scheduleUpdate(1000);
         }
-        this.confirmUpdated();  
+        
     };
     createDom = function() {
         const wrapper = document.createElement("div");

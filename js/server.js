@@ -69,7 +69,9 @@ function Server() {
             });
             piCamera.enable(ws);
         });
-
+        app.get("/scanned", (req, res) => {
+            res.sendFile(path.join(__dirname, "../scan.jpg"));
+        });
         app.use('/css', express.static(path.join(__dirname, '../smartmirror.css')));
         app.use("/js", express.static(__dirname));
         app.use("/modules", express.static(path.join(__dirname, "../modules")));

@@ -20,6 +20,7 @@ ws.onmessage = function (event) {
         const updater = document.querySelector('.' + module + '.update');
         if(updater != null) {
             updater.innerText = update;
+            console.log(update);
         }
     }
 };

@@ -1,5 +1,6 @@
-const {StillCamera} = require('pi-camera-connect');
-const camera = new StillCamera();
+const {libcamera} = require('libcamera')
+const faceapi = require('face-api.js');
+const fs = require('fs');
 
 function Camera() {
 
@@ -14,6 +15,7 @@ function Camera() {
             await new Promise(async (resolve) => {
                 await this.start();
                 ws.send("cam!");
+                this.delay(500);
                 await this.end();
                 ws.send("cam?");
                 resolve();
@@ -25,13 +27,22 @@ function Camera() {
         let counter = 0;
         console.log("cam started");
         while(counter < 3) {
-            //const image = await camera.takeImage();
+            libcamera
+                .still({config: {nopreview: true, output: 'scan.jpg'},})
+                //.then(result => console.log(result))
+                .catch(err => console.log(err));
+             
             await this.delay(500).then(() => {
-                // HERE NEED TO TEST IF HAS FACE
-                // IF YES ADD 1 TO COUNTER IF NO SUBTRACT 1
-                console.log(counter);
-                counter++;
+                if(true) {
+                    console.log(counter);
+                    counter++;
+                } else {
+                    console.log(counter);
+                    counter = 0;
+                }
+                
             });
+            
         }
         console.log("finished start");
     };
@@ -40,15 +51,22 @@ function Camera() {
         let counter = 8;
         console.log("cam ended");
         while(counter >= 0) {
-            //const image = await camera.takeImage();
+            libcamera
+                .still({config: {nopreview: true, output: 'scan.jpg'},})
+                //.then(result => console.log(result))
+                .catch(err => console.log(err));
+            
             await this.delay(500).then(() => {
-                // HERE NEED TO TEST IF HAS FACE
-                // IF YES SUBTRACT 1 TO COUNTER
-                console.log(counter);
-                counter--;
+                if(false) {
+                    console.log(counter);
+                    counter = 8;
+                } else {
+                    console.log(counter);
+                    counter--;
+                }
+                
             });
         }
-
         console.log("finished end");
     }
 }

@@ -20,9 +20,10 @@
     "electron": "^28.0.0"
   },
   "dependencies": {
+    "@tensorflow/tfjs-node": "^4.16.0",
     "express": "^4.18.2",
-    "pi-camera": "^1.7.0",
-    "pi-camera-connect": "^0.3.4",
+    "face-api.js": "^0.20.0",
+    "libcamera": "^1.0.7",
     "ws": "^8.16.0"
   }
 }

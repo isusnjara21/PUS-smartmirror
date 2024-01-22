@@ -63,6 +63,9 @@ app.on("certificate-error", (event, webContents, url, error, certificate, callba
 	callback(true);
 });
 
+app.disableHardwareAcceleration();
+app.commandLine.appendSwitch("disable-software-rasterizer");
+
 core.start().then(() => {
     console.log("App started");
     if(!process.argv.includes("test")) {
